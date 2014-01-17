@@ -1,0 +1,129 @@
+set nocompatible                " be iMproved
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Vundle plugin management
+
+filetype off                    " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" Vundle - required!
+Bundle 'gmarik/vundle'
+Bundle 'wincent/Command-T'
+Bundle 'jmcantrell/vim-virtualenv'
+Bundle 'tpope/vim-fugitive'
+Bundle 'majutsushi/tagbar'
+Bundle 'scrooloose/syntastic'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'rizzatti/funcoo.vim'
+Bundle 'rizzatti/dash.vim'
+Bundle 'bling/vim-airline'
+Bundle 'sudar/vim-arduino-syntax'
+Bundle 'ervandew/supertab'
+
+filetype plugin indent on       " required!
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" General
+
+set history=100                 " How many lines of history to remember
+set clipboard+=unnamed          " sharing with system clipboard
+set viminfo+=!                  " make sure it can save viminfo
+set noswapfile                  " do not write annoying intermediate swap files
+set wildignore=*.swp,*.pyc      " ignore theese files
+
+"""""""""""""""""""""""""""""""""""""""""""
+""" Vim UI
+
+set guioptions=ac               " disable GUI and keep only useful stuff
+set lsp=0                       " space it out a little more (easier to read)
+set wildmenu                    " turn on wild menu
+set ruler                       " always show current positions along the bottom
+set number                      " turn on line numbers
+set showcmd                     " show partial commands in the last line of the screen
+set guicursor+=a:blinkon0       " turn off cursor blinking
+set laststatus=2                " always show the status line
+set noshowmode                  " don't show edit mode in statusline
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Theme
+
+syntax on                       " syntax highlighting on
+set background=dark             " we are using a dark background
+set colorcolumn=80              " colored column
+set guifont=Sauce\ Code\ Powerline\ Light:h15    " font
+colorscheme railscastsplus      " color theme
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Visual Cues
+
+set so=5                        " keep lines (top/bottom) for scope
+set showmatch                   " show matching brackets
+set matchpairs+=<:>             " ^ match also < > brackets
+set hlsearch                    " do not highlight searched for phrases
+set incsearch                   " BUT do highlight as you type you search phrase
+set ignorecase                  " use case insensitive search
+set smartcase                   " ^ except when using capital letters
+set listchars=tab:\|\ ,trail:.,eol:$ " what to show when I hit :set list
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Text Formatting
+
+set autoindent                  " autoindent on new line
+set expandtab                   " spaces instead of TAB
+set tabstop=4                   " tab spacing (settings below are just to unify it)
+set softtabstop=4               " unify
+set shiftwidth=4                " unify
+set nowrap                      " do not wrap lines
+set backspace=indent,eol,start  " allow backspacing over autoindent, line breaks and start of insert action
+set isk+=$,@,%,#,_ " none of these should be word dividers, so make them not be
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Shortcuts
+
+" plugin Command-T
+noremap <leader>e :CommandT<CR>
+noremap <leader>f :CommandTFlush<CR>
+
+" plugin Tagba\
+noremap <leader>i :TagbarToggle<CR>
+
+" new tab
+noremap <leader>t :tabnew<CR>
+
+" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
+" which is the default
+map Y y$
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Plugins
+
+" CoffeeScript
+let coffee_make_options = '--bare --map'    " CoffeeScript compiler options
+compiler coffee
+
+" Airline
+let g:airline_theme = 'ubaryd'
+let g:airline_powerline_fonts = 1
+"let g:airline_mode_map = {'__': '-', 'n': 'N', 'i': 'I', 'R': 'R', 'c': 'C',
+"    \ 'v': 'V', 'V': 'V', '': 'V', 's': 'S', 'S': 'S', '': 'S',}
+let g:airline_section_x = ''
+let g:airline_section_y = '%{airline#extensions#tagbar#currenttag()}'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Automatization
+
+" remove trailing whitespaces before save
+autocmd BufWritePre * :%s/\s\+$//e
+
+" set python syntax for *.wsgi files
+autocmd BufReadPost *.wsgi set syntax=python
+
+" CoffeeScript autocompile on save
+autocmd BufWritePost *.coffee silent make!
+
+" cd on start
+cd ~/dev
+
