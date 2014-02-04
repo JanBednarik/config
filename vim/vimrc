@@ -112,6 +112,9 @@ let g:airline_powerline_fonts = 1
 let g:airline_section_x = ''
 let g:airline_section_y = '%{airline#extensions#tagbar#currenttag()}'
 
+" Syntastic
+let g:syntastic_python_checkers = ['pyflakes']
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Automatization
 
