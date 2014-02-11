@@ -34,7 +34,7 @@ set viminfo+=!                  " make sure it can save viminfo
 set noswapfile                  " do not write annoying intermediate swap files
 set wildignore=*.swp,*.pyc      " ignore theese files
 
-"""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Vim UI
 
 set guioptions=ac               " disable GUI and keep only useful stuff
@@ -78,7 +78,7 @@ set softtabstop=4               " unify
 set shiftwidth=4                " unify
 set nowrap                      " do not wrap lines
 set backspace=indent,eol,start  " allow backspacing over autoindent, line breaks and start of insert action
-set isk+=$,@,%,#,_ " none of these should be word dividers, so make them not be
+set isk+=$,@,%,#,_              " none of these should be word dividers, so make them not be
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Shortcuts
@@ -87,7 +87,7 @@ set isk+=$,@,%,#,_ " none of these should be word dividers, so make them not be
 noremap <leader>e :CommandT<CR>
 noremap <leader>f :CommandTFlush<CR>
 
-" plugin Tagba\
+" plugin Tagbar
 noremap <leader>i :TagbarToggle<CR>
 
 " new tab
@@ -107,8 +107,6 @@ compiler coffee
 " Airline
 let g:airline_theme = 'ubaryd'
 let g:airline_powerline_fonts = 1
-"let g:airline_mode_map = {'__': '-', 'n': 'N', 'i': 'I', 'R': 'R', 'c': 'C',
-"    \ 'v': 'V', 'V': 'V', '': 'V', 's': 'S', 'S': 'S', '': 'S',}
 let g:airline_section_x = ''
 let g:airline_section_y = '%{airline#extensions#tagbar#currenttag()}'
 
