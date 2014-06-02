@@ -22,6 +22,7 @@ Bundle 'rizzatti/dash.vim'
 Bundle 'bling/vim-airline'
 Bundle 'sudar/vim-arduino-syntax'
 Bundle 'ervandew/supertab'
+Bundle 'rking/ag.vim'
 
 filetype plugin indent on       " required!
 
@@ -93,6 +94,9 @@ noremap <leader>i :TagbarToggle<CR>
 " new tab
 noremap <leader>t :tabnew<CR>
 
+" ag word under cursor
+noremap <leader>a :Ag!<CR>
+
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
 map Y y$
@@ -111,7 +115,10 @@ let g:airline_section_x = ''
 let g:airline_section_y = '%{airline#extensions#tagbar#currenttag()}'
 
 " Syntastic
-let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_python_checkers = ['flake8']
+
+" Ag
+let g:agprg="ag --column --ignore *.js"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Automatization
@@ -123,7 +130,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufReadPost *.wsgi set syntax=python
 
 " CoffeeScript autocompile on save
-autocmd BufWritePost *.coffee silent make!
+" autocmd BufWritePost *.coffee silent make!
 
 " cd on start
 cd ~/dev
