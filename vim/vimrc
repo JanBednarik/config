@@ -23,6 +23,7 @@ Bundle 'bling/vim-airline'
 Bundle 'sudar/vim-arduino-syntax'
 Bundle 'ervandew/supertab'
 Bundle 'rking/ag.vim'
+Bundle 'scrooloose/nerdtree'
 
 filetype plugin indent on       " required!
 
@@ -118,7 +119,7 @@ let g:airline_section_y = '%{airline#extensions#tagbar#currenttag()}'
 let g:syntastic_python_checkers = ['flake8']
 
 " Ag
-let g:agprg="ag --column --ignore *.js"
+let g:agprg="ag --column --ignore *.js --ignore *.map --ignore *.css"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Automatization
