@@ -10,7 +10,7 @@ call vundle#rc()
 
 " Vundle - required!
 Bundle 'gmarik/vundle'
-Bundle 'wincent/Command-T'
+Bundle 'kien/ctrlp.vim'
 Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'tpope/vim-fugitive'
 Bundle 'majutsushi/tagbar'
@@ -85,9 +85,9 @@ set isk+=$,@,%,#,_              " none of these should be word dividers, so make
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Shortcuts
 
-" plugin Command-T
-noremap <leader>e :CommandT<CR>
-noremap <leader>f :CommandTFlush<CR>
+" plugin CtrlP
+noremap <leader>e :CtrlP<CR>
+noremap <leader>f :CtrlPClearAllCaches<CR>
 
 " plugin Tagbar
 noremap <leader>i :TagbarToggle<CR>
