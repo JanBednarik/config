@@ -24,6 +24,9 @@ Bundle 'sudar/vim-arduino-syntax'
 Bundle 'ervandew/supertab'
 Bundle 'rking/ag.vim'
 Bundle 'scrooloose/nerdtree'
+Bundle 'kylef/apiblueprint.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'plasticboy/vim-markdown'
 
 filetype plugin indent on       " required!
 
@@ -120,6 +123,9 @@ let g:syntastic_python_checkers = ['flake8']
 
 " Ag
 let g:agprg="ag --column --ignore *.js --ignore *.map --ignore *.css"
+
+" Markdown
+let g:vim_markdown_folding_disabled=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Automatization
