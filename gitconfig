@@ -1,8 +1,10 @@
 [user]
-    name = Jan Bednařík
-    email = jan.bednarik@gmail.com
+	name = Jan Bednařík
+	email = jan.bednarik@gmail.com
 [alias]
     ch = checkout
+    chd = checkout devel
+    chm = checkout master
     coam = commit -a -m
     com = commit -m
     st = status
