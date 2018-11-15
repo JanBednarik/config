@@ -7,8 +7,12 @@
     chm = checkout master
     coam = commit -a -m
     com = commit -m
+    coa = commit -a
     st = status
     br = branch
+    amd = commit --amend
+    ama = commit -a --amend --no-edit
+    puf = push --force
 [push]
     default = current
 [core]
