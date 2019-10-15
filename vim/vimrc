@@ -29,6 +29,7 @@ Plugin 'hdima/python-syntax'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'w0rp/ale'
+Plugin 'cespare/vim-toml'
 
 call vundle#end()
 filetype plugin indent on       " required!
@@ -125,6 +126,7 @@ let g:airline_section_y = '%{airline#extensions#tagbar#currenttag()}'
 
 " Ale
 let g:ale_linters = { 'javascript': ['eslint'], 'python': ['pylint'] }
+let g:ale_python_pylint_options = '--disable=import-error'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_fixers = { 'javascript': ['prettier'], 'python': ['black'] }
 let g:ale_fix_on_save = 1

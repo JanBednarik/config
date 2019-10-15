@@ -32,3 +32,7 @@
     added = yellow
     changed = green
     untracked = cyan
+[fetch]
+	prune = true
+[rerere]
+	enabled = true
