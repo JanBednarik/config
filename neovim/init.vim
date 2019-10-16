@@ -5,29 +5,33 @@ set nocompatible                " be iMproved
 
 filetype off                    " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.config/nvim/bundle/Vundle.vim
+call vundle#begin()
 
 " Vundle - required!
-Bundle 'gmarik/vundle'
-Bundle 'kien/ctrlp.vim'
-Bundle 'jmcantrell/vim-virtualenv'
-Bundle 'tpope/vim-fugitive'
-Bundle 'majutsushi/tagbar'
-Bundle 'scrooloose/syntastic'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'rizzatti/funcoo.vim'
-Bundle 'rizzatti/dash.vim'
-Bundle 'bling/vim-airline'
-Bundle 'sudar/vim-arduino-syntax'
-Bundle 'ervandew/supertab'
-Bundle 'rking/ag.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'kylef/apiblueprint.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'plasticboy/vim-markdown'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'majutsushi/tagbar'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'rizzatti/funcoo.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'sudar/vim-arduino-syntax'
+Plugin 'ervandew/supertab'
+Plugin 'mileszs/ack.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kylef/apiblueprint.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'vim-scripts/openscad.vim'
+Plugin 'hdima/python-syntax'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'w0rp/ale'
+Plugin 'cespare/vim-toml'
 
+call vundle#end()
 filetype plugin indent on       " required!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -58,7 +62,8 @@ set noshowmode                  " don't show edit mode in statusline
 syntax on                       " syntax highlighting on
 set background=dark             " we are using a dark background
 set colorcolumn=80              " colored column
-set guifont=Sauce\ Code\ Powerline\ Light:h15    " font
+" font is set in ginit.vim
+" set guifont=Source\ Code\ Pro\ for\ Powerline\ Light:h16    " font
 colorscheme railscastsplus      " color theme
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -85,12 +90,18 @@ set nowrap                      " do not wrap lines
 set backspace=indent,eol,start  " allow backspacing over autoindent, line breaks and start of insert action
 set isk+=$,@,%,#,_              " none of these should be word dividers, so make them not be
 
+autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2  " Two spaces for HTML files
+autocmd FileType htmldjango setlocal tabstop=2 softtabstop=2 shiftwidth=2  " Two spaces for HTML files
+autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2  " Two spaces for JavaScript files
+autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2  " Two spaces for HTML files
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Shortcuts
 
 " plugin CtrlP
 noremap <leader>e :CtrlP<CR>
 noremap <leader>f :CtrlPClearAllCaches<CR>
+let g:ctrlp_working_path_mode = ''
 
 " plugin Tagbar
 noremap <leader>i :TagbarToggle<CR>
@@ -98,8 +109,8 @@ noremap <leader>i :TagbarToggle<CR>
 " new tab
 noremap <leader>t :tabnew<CR>
 
-" ag word under cursor
-noremap <leader>a :Ag!<CR>
+" ack word under cursor
+noremap <leader>a :Ack!<CR>
 
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
@@ -108,37 +119,51 @@ map Y y$
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Plugins
 
-" CoffeeScript
-let coffee_make_options = '--bare --map'    " CoffeeScript compiler options
-compiler coffee
-
 " Airline
 let g:airline_theme = 'ubaryd'
 let g:airline_powerline_fonts = 1
 let g:airline_section_x = ''
 let g:airline_section_y = '%{airline#extensions#tagbar#currenttag()}'
 
-" Syntastic
-let g:syntastic_python_checkers = ['flake8']
+" Ale
+let g:ale_linters = { 'javascript': ['eslint'], 'python': ['pylint'] }
+let g:ale_python_pylint_options = '--disable=import-error'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_fixers = { 'javascript': ['prettier'], 'python': ['black'] }
+let g:ale_fix_on_save = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ale_javascript_eslint_use_global = 1
 
-" Ag
-let g:agprg="ag --column --ignore *.js --ignore *.map --ignore *.css"
+" Ack
+let g:ackprg="ag --vimgrep --ignore *.map --ignore *.css --ignore node_modules"
 
 " Markdown
 let g:vim_markdown_folding_disabled=1
+
+" CtrlP
+let g:ctrlp_custom_ignore = { 'dir': '\.git$\|node_modules$\|docker/.*/src$' }
+
+" JSX
+let g:jsx_ext_required = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Automatization
 
 " remove trailing whitespaces before save
-autocmd BufWritePre * :%s/\s\+$//e
+fun! StripTrailingWhitespace()
+    " Don't strip on these filetypes
+    if &ft =~ 'markdown'
+        return
+    endif
+    %s/\s\+$//e
+endfun
+
+autocmd BufWritePre * call StripTrailingWhitespace()
 
 " set python syntax for *.wsgi files
 autocmd BufReadPost *.wsgi set syntax=python
-
-" CoffeeScript autocompile on save
-" autocmd BufWritePost *.coffee silent make!
+" set python syntax for *.spy files
+autocmd BufReadPost *.spy set syntax=python
 
 " cd on start
 cd ~/dev
-
