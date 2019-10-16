@@ -1,0 +1,18 @@
+{
+  "segments": [
+    "virtual_env",
+    "username",
+    "ssh",
+    "cwd",
+    "git",
+    "read_only",
+    "root"
+  ],
+  "cwd": {
+    "mode": "plain"
+  },
+  "vcs": {
+    "show_symbol": true
+  },
+  "theme": "~/.config/powerline-shell/theme.py"
+}
