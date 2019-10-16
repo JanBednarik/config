@@ -30,6 +30,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'w0rp/ale'
 Plugin 'cespare/vim-toml'
+Plugin 'srcery-colors/srcery-vim'
 
 call vundle#end()
 filetype plugin indent on       " required!
@@ -64,7 +65,8 @@ set background=dark             " we are using a dark background
 set colorcolumn=80              " colored column
 " font is set in ginit.vim
 " set guifont=Source\ Code\ Pro\ for\ Powerline\ Light:h16    " font
-colorscheme railscastsplus      " color theme
+set termguicolors
+colorscheme srcery
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Visual Cues
@@ -120,7 +122,7 @@ map Y y$
 """ Plugins
 
 " Airline
-let g:airline_theme = 'ubaryd'
+let g:airline_theme = 'minimalist'
 let g:airline_powerline_fonts = 1
 let g:airline_section_x = ''
 let g:airline_section_y = '%{airline#extensions#tagbar#currenttag()}'
