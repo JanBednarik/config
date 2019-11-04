@@ -1,5 +1,8 @@
 set nocompatible                " be iMproved
 
+let g:python3_host_prog = "/Users/honza/.pyenv/shims/python3"
+let g:python_host_prog = "/Users/honza/.pyenv/shims/python2"
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Plug plugin management
 
@@ -117,7 +120,7 @@ autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2  " Two space
 
 " plugin CtrlP
 noremap <leader>e :CtrlP<CR>
-noremap <leader>f :CtrlPClearAllCaches<CR>
+noremap <leader>r :CtrlPClearAllCaches<CR>
 let g:ctrlp_working_path_mode = ''
 
 " plugin Tagbar
@@ -190,6 +193,7 @@ let g:jsx_ext_required = 0
 
 " Semshi
 let g:semshi#mark_selected_nodes = 0
+let g:semshi#error_sign = v:false
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Automatization
@@ -207,8 +211,6 @@ autocmd BufWritePre * call StripTrailingWhitespace()
 
 " set python syntax for *.wsgi files
 autocmd BufReadPost *.wsgi set syntax=python
-" set python syntax for *.spy files
-autocmd BufReadPost *.spy set syntax=python
 
 " cd on start
 cd ~/dev
