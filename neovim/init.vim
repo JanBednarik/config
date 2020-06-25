@@ -172,12 +172,18 @@ let g:airline_section_y = '%{airline#extensions#tagbar#currenttag()}'
 let g:ale_linters = { 'javascript': ['eslint'], 'python': ['pylint'] }
 let g:ale_python_pylint_options = '--disable=import-error'
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_fixers = { 'javascript': ['prettier'], 'python': ['black'] }
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\   'python': ['black']
+\}
+" \   'html': ['html-beautify'],
+" \   'htmldjango': ['html-beautify']
 let g:ale_fix_on_save = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_sign_error = emoji#for('small_red_triangle')
 let g:ale_sign_warning = emoji#for('small_orange_diamond')
+let g:ale_html_beautify_options = '-s 2'
 
 " Ack
 let g:ackprg="ag --hidden --vimgrep"
@@ -214,3 +220,5 @@ autocmd BufReadPost *.wsgi set syntax=python
 
 " cd on start
 cd ~/dev
+
+autocmd BufReadPost * call HighlightsOverride()

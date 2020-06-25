@@ -38,3 +38,5 @@
 	enabled = true
 [pager]
 	branch = false
+[pull]
+	rebase = false
