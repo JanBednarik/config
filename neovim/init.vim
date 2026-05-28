@@ -2,6 +2,7 @@ set nocompatible                " be iMproved
 
 let g:python3_host_prog = "/Users/honza/.pyenv/shims/python3"
 let g:python_host_prog = "/Users/honza/.pyenv/shims/python2"
+let g:ruby_host_prog = "/Users/honza/.rbenv/shims/ruby"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Plug plugin management
@@ -36,10 +37,11 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-scripts/openscad.vim'
-Plug 'cespare/vim-toml'
+Plug 'cespare/vim-toml', { 'branch': 'main' }
 " Plug 'hdima/python-syntax'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'wookayin/semshi', { 'do': ':UpdateRemotePlugins', 'tag': '*' }
 " Plug 'davidhalter/jedi-vim'
+Plug 'chaimleib/vim-renpy'
 
 call plug#end()
 
@@ -52,11 +54,12 @@ set viminfo+=!                  " make sure it can save viminfo
 set noswapfile                  " do not write annoying intermediate swap files
 set wildignore=*.swp,*.pyc      " ignore theese files
 set autoread                    " autoread changed files
+set nohidden                    " don't hide usaved buffers
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Vim UI
 
-set guioptions=ac               " disable GUI and keep only useful stuff
+" set guioptions=ac               " disable GUI and keep only useful stuff
 set lsp=0                       " space it out a little more (easier to read)
 set wildmenu                    " turn on wild menu
 set ruler                       " always show current positions along the bottom
@@ -89,7 +92,7 @@ autocmd ColorScheme * call HighlightsOverride()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Visual Cues
 
-set so=5                        " keep lines (top/bottom) for scope
+" set so=6                        " keep lines (top/bottom) for scope
 set showmatch                   " show matching brackets
 set matchpairs+=<:>             " ^ match also < > brackets
 " set hlsearch                    " do not highlight searched for phrases
@@ -170,7 +173,7 @@ let g:airline_section_y = '%{airline#extensions#tagbar#currenttag()}'
 
 " Ale
 let g:ale_linters = { 'javascript': ['eslint'], 'python': ['pylint'] }
-let g:ale_python_pylint_options = '--disable=import-error'
+" let g:ale_python_pylint_options = '--disable=import-error'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
@@ -184,6 +187,8 @@ let g:ale_javascript_eslint_use_global = 1
 let g:ale_sign_error = emoji#for('small_red_triangle')
 let g:ale_sign_warning = emoji#for('small_orange_diamond')
 let g:ale_html_beautify_options = '-s 2'
+let g:ale_html_tidy_options = '--custom-tags'
+let g:ale_virtualtext_cursor = 0
 
 " Ack
 let g:ackprg="ag --hidden --vimgrep"
@@ -192,7 +197,10 @@ let g:ackprg="ag --hidden --vimgrep"
 let g:vim_markdown_folding_disabled=1
 
 " CtrlP
-let g:ctrlp_custom_ignore = { 'dir': '\.git$\|node_modules$\|docker/.*/src$' }
+let g:ctrlp_custom_ignore = {
+\   'dir': '\.git$\|node_modules$\|docker/.*/src$\|media_files$',
+\   'file': '\v\.(rpyc|png|jpg)$',
+\ }
 
 " JSX
 let g:jsx_ext_required = 0
